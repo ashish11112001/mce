@@ -32,6 +32,7 @@
                           $this->table->set_template($table_setup);
                           $this->table->set_heading(array('data' => 'S.No', 'width' => '5%'),
                                             array('data' => 'Material Details', 'width' => '80%'),
+                                            array('data' => 'Subject', 'width' => '30%'),
                                             array('data' => 'Action', 'width' => '15%')
                                             );
                         $i=1;
@@ -41,6 +42,7 @@
                                 $files = $Details1->file_names;
                                 $files1 = pathinfo($files, PATHINFO_FILENAME);
                                 $name = str_replace('_', ' ', $files1);
+                                $subject = $this->globals_model->get_name_by_id($Details1->subject,"subjects");
                                 $btn = anchor('assets/departments/'.$short_name.'/materials/'.$files,'<i class="fa fa-fw fa-download"></i> Download','class="btn btn-danger btn-xs" target="_blank"');
                             }
 
@@ -61,6 +63,7 @@
                           
                               $this->table->add_row($i++,
                                         $name,
+                                        $subject,
                                         $btn
                                     );
                         }

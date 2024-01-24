@@ -43,7 +43,7 @@
                                         <?=$achievements1->details;?>
                                         <?php
                                             if($achievements1->file_name){
-                                                echo "<p>File: ".anchor('assets/departments/'.$short_name.'/achievements/'.$achievements1->file_name, $achievements1->file_name, 'target="_blank"').'</p>';
+                                                echo "<p>File: ".anchor('assets/departments/'.$short_name.'/achievements/'.$achievements1->file_name, 'Click Here', 'class="btn btn-warning btn-sm" target="_blank"').'</p>';
                                             }
                                             if($achievements1->url){
                                                 echo "<p>Link: ".anchor($achievements1->url, 'Click Here.', 'target="_blank"').'</p>';

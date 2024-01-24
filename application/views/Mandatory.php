@@ -287,9 +287,26 @@
                                             <p>2022-23</p>
                                         </td>
                                         <td width="261"> <p><?php echo anchor('assets/files/MANDATORY DISCLOSURE/COLLEGE AUDIT REPORT/Audit Report 2022-23.pdf','<i class="fa fa-download"></i> Download','class="btn btn-warning btn-sm" target="_blank"');?></p></td>
-                                    </tr>
+                              
+                                 </tr>
+                                  
                                 </tbody>
                             </table>
+                                  <br/>
+                                        <br/>
+                            <table>
+                             <tbody>
+                             <p><strong><u>Provisional Seniority List Aided</u></strong></p>
+                             <td width="368">
+                                            <p><B>Referal Link for the Document</B></p>
+                                        </td>
+                               <td width="219"> <p><?php echo anchor('assets/files/MANDATORY DISCLOSURE/seniority list aided.pdf','<i class="fa fa-download"></i> VIEW NOW','class="btn btn-warning btn-sm" target="_blank"');?></p>  
+                                     </td>
+                                       
+                                     </tbody>
+                            </table>
+                               <br/>
+                                        <br/>
                             <p><strong><u>Essential Requirements For Technical Institutions as per APH 2021-22</u></strong></p>
                             <table width="0" class="table table-striped">
                                 <tbody>
@@ -323,14 +340,13 @@
                                             <p><B><a href="
 https://drive.google.com/file/d/139muOk0UqBhCO0XO7-vGmmS8oL--zJNN/view?usp=drive_link">CLICK HERE -> Induction Program Video Link-2023</a><a href="
 https://drive.google.com/file/d/139muOk0UqBhCO0XO7-vGmmS8oL--zJNN/view?usp=drive_link"></a></b></p>
-                                            <p>&nbsp;</p>
-                                            <p>&nbsp;</p>
-                                            <p>&nbsp;</p>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
 
                               </table>
+                              
                             <p><strong>&nbsp;AISHE  Certificates</strong></p>
                             <table class="table table-striped">
                                 <tbody>

@@ -24,6 +24,20 @@
           <div class="row">
             <div class="col-md-8 pull-right flip sm-pull-none">
               <div class="row list-dashed">
+              <div class="col-md-12 pt-10 pb-10">
+              <div class="widget no-border m-0">
+                <b>Latest News & Events :</b>
+                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" >
+                <?php foreach ($Details as $Details1) { ?> <b><?= $Details1->news_title; ?></b>
+                  <?php } ?>
+                </marquee>
+                <!-- <ul class="list-inline">
+                <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-white"></i> <a class="text-white" href="#">123-456-789</a> </li>
+                <li class="text-white m-0 pl-10 pr-10"> <i class="fa fa-clock-o text-white"></i> Mon-Fri 8:00 to 2:00 </li>
+                <li class="m-0 pl-10 pr-10"> <i class="fa fa-envelope-o text-white"></i> <a class="text-white" href="#">contact@yourdomain.com</a> </li>
+              </ul> -->
+              </div>
+            </div>
                 <div class="col-md-12">
                   <!-- Slider Revolution Start -->
                   <div class="rev_slider_wrapper">
@@ -158,7 +172,11 @@ else { ?>
                   </script>
                   <!-- Slider Revolution Ends -->
                   <h4 class="text-blue">About Department of <?=$parentMenu;?></h4>
-                  <div class="text-justify"><?php echo nl2br($departmentsDetails->about);?></div>
+                  <div class="text-justify"><?php 
+                  $abt=str_replace("oembed","iframe",$departmentsDetails->about);
+                  
+                  
+                  echo str_replace("url=","width='100%' height='400' src=",$abt);?></div>
                   <h4 class="text-blue">Vision </h4>
                   <div class="text-justify"><?php echo nl2br($departmentsDetails->vision);?></div>
                   <h4 class="text-blue">Mission </h4>

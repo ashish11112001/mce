@@ -83,8 +83,9 @@
                                 <table class="table table-hover">
                                     <tr>
                                         <th width="5%">S.No</th>
-                                        <th width="30%">Guide Name</th>
                                         <th width="30%">Student Name</th>
+                                        <th width="30%">Guide Name</th>
+                                       
                                         <th width="20%">Field of Study</th>
                                         <th width="15%">Scholar Type</th>
                                         <th width="15%">Research Type </th>
@@ -98,8 +99,9 @@
                                     ?>
                                     <tr>
                                         <td><?=$i++;?>.</td>
-                                        <td><?=$researchScholars1->guide_name;?></td>
                                         <td><?=$researchScholars1->student_name;?></td>
+                                        <td><?=$researchScholars1->guide_name;?></td>
+                                        
                                         <td><?=$researchScholars1->field_of_study;?></td>
                                         <td><?=$scholarTypes[$researchScholars1->scholar_type];?></td>
                                         <td><?=$researchTypes[$researchScholars1->research_type];?></td>

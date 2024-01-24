@@ -24,10 +24,27 @@
                 <div class="col-md-8 pull-right flip sm-pull-none">
                     <div class="row list-dashed">
                         <div class="col-md-12">
-                      <?php  foreach ($Details as $Details1) { ?>
-                        <h4 class="text-blue"><?=$Details1->news_title; ?></h4>
-                        <div class="text-justify"><p><?=$Details1->news_details; ?></p></div>
-                        <?php } ?>
+                            <?php foreach ($Details as $Details1) { ?>
+                                <h4 class="text-blue"><?= $Details1->news_title; ?></h4>
+                                <div class="text-justify">
+                                    <p><?= $Details1->news_details; ?></p>
+                                </div>
+                                <div class="row">
+                                    <?php $fileNames = unserialize($Details1->files);
+                                    foreach ($fileNames as $key => $value) { ?>
+                                        <!-- Portfolio Item Start -->
+                                        <div class="col-xs-12 col-sm-4 col-md-4">
+                                            <div class="image-box-thum">
+                                                <img class="img-fullwidth" alt="" src="<?= base_url(); ?>assets/departments/<?= $short_name ?>/latest_news/<?= $value; ?>">
+
+
+
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+
+                            <?php } ?>
                         </div>
                     </div>
 

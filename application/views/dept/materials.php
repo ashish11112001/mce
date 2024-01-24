@@ -9,6 +9,8 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"><?=$pageTitle;?></h6>
                 <div class="dropdown no-arrow">
+                <?php echo anchor('dept/Subjects','<i class="fas fa-plus fa-sm fa-fw text-danger"></i> Subjects', 'class="text-danger" ');?>
+                    &nbsp;&nbsp; | &nbsp;&nbsp;
                     <?php echo anchor('dept/addMaterials','<i class="fas fa-plus fa-sm fa-fw text-danger"></i> Add File', 'class="text-danger" ');?>
                     &nbsp;&nbsp; | &nbsp;&nbsp;
                     <?php echo anchor('dept/addMaterialsLink','<i class="fas fa-plus fa-sm fa-fw text-danger"></i> Add Link', 'class="text-danger" ');?>

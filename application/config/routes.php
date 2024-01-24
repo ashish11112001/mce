@@ -62,6 +62,7 @@ $route['examination-manage'] = 'examination';
 $route['aicte-manage'] = 'aicte';
 $route['iqac-manage'] = 'iqac';
 $route['naac-manage'] = 'naac';
+$route['media-manage'] = 'media';
 // $route['mcenaac.php?link=4'] = 'home';
 $route['home/overview/(:any)'] = 'home/overview/$1';
 $route['home/HOD_Details/(:any)'] = 'home/HOD_Details/$1';

@@ -96,4 +96,18 @@ class Globals_model extends CI_Model
             "5" => "Tender"
         );
     }
+
+    public function get_name_by_id($id,$table) {
+        // Assuming your table name is 'your_table'
+        $query = $this->db->get_where($table, array('id' => $id));
+
+        // Check if a row with the given ID exists
+        if ($query->num_rows() > 0) {
+            // Retrieve the 'name' field value
+            $result = $query->row()->name;
+            return $result;
+        } else {
+            return false; // or handle the case when the ID is not found
+        }
+    }
 }

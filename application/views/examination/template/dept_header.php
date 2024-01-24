@@ -76,6 +76,9 @@
                             <?php echo anchor('examination/documents','<i class="nav-main-link-icon si si-list"></i> <span class="nav-main-link-name">Circulars</span>','class="nav-main-link '.(($activeMenu == "accreditedDocuments")?"active":"").' "');  ?>
                         </li>
                         <li class="nav-main-item">
+                            <?php echo anchor('examination/seats','<i class="nav-main-link-icon si si-list"></i> <span class="nav-main-link-name">Seat Allotment</span>','class="nav-main-link '.(($activeMenu == "seats")?"active":"").' "');  ?>
+                        </li>
+                        <li class="nav-main-item">
                             <?php echo anchor('examination/changePassword','<i class="nav-main-link-icon si si-lock"></i> <span class="nav-main-link-name">Change Password</span>','class="nav-main-link '.(($activeMenu == "changePassword")?"active":"").' "');?>
                         </li>
                         <li class="nav-main-item">

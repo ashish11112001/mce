@@ -328,6 +328,15 @@ class Home extends CI_Controller
 		$this->template->show('Circulars', $data);
 	}
 
+	public function Seat_Allotment()
+	{
+		$data['mainMenu'] = 'Examination';
+		$data['parentMenu'] = false;
+		$data['activeMenu'] = "Seat Allotment";
+		$data['circulars'] = $this->admin_model->getDetailsbyfieldSort('22', 'dept_id','id','desc', 'seats')->result();
+		$this->template->show('seats', $data);
+	}
+
 	public function Results()
 	{
 		$data['mainMenu'] = 'Examination';
@@ -680,12 +689,19 @@ class Home extends CI_Controller
 		
 	}
 	
-		public function DVV_Clarification()
+		public function DVV_Clarification_1()
 	{
 		$data['mainMenu'] = 'NAAC';
 		$data['parentMenu'] = false;
-		$data['activeMenu'] = "DVV Clarification";
+		$data['activeMenu'] = "DVV Clarification-1";
 		$this->template->show('DVV_Clarification', $data);
+	}
+	public function DVV_Clarification_2()
+	{
+		$data['mainMenu'] = 'NAAC';
+		$data['parentMenu'] = false;
+		$data['activeMenu'] = "DVV Clarification-2";
+		$this->template->show('DVV_Clarification2', $data);
 	}
 	
 		public function Extended_Profile()
@@ -1726,7 +1742,8 @@ class Home extends CI_Controller
 		$data["slider_count"] = $this->admin_model->sliders_count($data['dept_id']);
 		$data['activeMenu'] = "Overview";
 		$data['sliders'] = $this->admin_model->getDetailsbyfield($data['dept_id'], 'dept_id', 'sliders')->result();
-	
+		$data['Details'] = $this->admin_model->getDetailsbyfield($data['dept_id'], 'dept_id', 'events')->result();
+		
 		$data['departmentsDetails'] = $this->admin_model->getDetailsbyfield($data['dept_id'], 'department_id', 'departments_data')->row();
 		$this->template->show('Dept_Overview', $data);
 	}
@@ -1752,6 +1769,7 @@ class Home extends CI_Controller
 		$data['page_title'] = "Gallery";
 		$data['mainMenu'] = 'Departments';
 		$data['dept_name'] = str_replace('-', ' ', $id);
+		$data['id'] = $id;
 		$data['dept_id'] = $this->globals_model->departmentId($data['dept_name']);
 		$data['parentMenu'] = $this->globals_model->departmentsList()[$data['dept_id']];
 		$data['short_name'] = $this->globals_model->departmentShortName()[$data['dept_id']];
@@ -1759,6 +1777,21 @@ class Home extends CI_Controller
 		$data['activeMenu'] = "Gallery";
 		$data['departmentsDetails'] = $this->admin_model->getDetailsbyfield($data['dept_id'], 'department_id', 'departments_data')->row();
 		$this->template->show('Dept_Gallery', $data);
+	}
+	public function gallery_images($id,$alb)
+	{
+		$data['page_title'] = "Gallery";
+		$data['mainMenu'] = 'Departments';
+		$data['dept_name'] = str_replace('-', ' ', $id);
+		$data['id'] = $id;
+		$data['album'] = $this->admin_model->getDetailsbyfield($alb, 'id', 'albums')->row();
+		$data['dept_id'] = $this->globals_model->departmentId($data['dept_name']);
+		$data['parentMenu'] = $this->globals_model->departmentsList()[$data['dept_id']];
+		$data['short_name'] = $this->globals_model->departmentShortName()[$data['dept_id']];
+		$data['albums'] = $this->admin_model->getDetailsbyfield($alb, 'album_id', 'album_images')->result();
+		$data['activeMenu'] = "Gallery";
+		$data['departmentsDetails'] = $this->admin_model->getDetailsbyfield($data['dept_id'], 'department_id', 'departments_data')->row();
+		$this->template->show('Dept_Gallery_Inner', $data);
 	}
 
 
@@ -1968,10 +2001,10 @@ class Home extends CI_Controller
 		$data['short_name'] = $this->globals_model->departmentShortName()[$data['dept_id']];
 		$data['activeMenu'] = "Alumni";
 		$config = array();
-		$config["base_url"] = base_url() . "home/Alumni/'".$id.'/';
+		$config["base_url"] = base_url() . "home/Alumni/".$id.'/';
 		$config["total_rows"] = $this->admin_model->alumni_count($data['dept_id']);
 		$config["per_page"] = 10;
-		$config["uri_segment"] = 3;
+		$config["uri_segment"] = 4;
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$config['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
@@ -1987,7 +2020,7 @@ class Home extends CI_Controller
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
 		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 		$data["links"] = $this->pagination->create_links();
 		$data['staff'] = $this->admin_model->get_alumni($data['dept_id'], $config["per_page"], $page);
 		$this->template->show('Dept_Alumni', $data);
@@ -2070,7 +2103,7 @@ class Home extends CI_Controller
 		$config["base_url"] = base_url() . "home/Achievements/".$id.'/';
 		$config["total_rows"] = $this->admin_model->achievements_count($data['dept_id']);
 		$config["per_page"] = 10;
-		$config["uri_segment"] = 3;
+		$config["uri_segment"] = 4;
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$config['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
@@ -2086,7 +2119,7 @@ class Home extends CI_Controller
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
 		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 		$data["links"] = $this->pagination->create_links();
 		$data['page'] = $page;
 		$data['achievements'] = $this->admin_model->get_achievements($data['dept_id'], $config["per_page"], $page);
@@ -2107,7 +2140,7 @@ class Home extends CI_Controller
 		$config["base_url"] = base_url() . "home/Activities/".$id.'/';
 		$config["total_rows"] = $this->admin_model->activities_count($data['dept_id']);
 		$config["per_page"] = 10;
-		$config["uri_segment"] = 3;
+		$config["uri_segment"] = 4;
 		$config['num_tag_open'] = '<li>';
 		$config['num_tag_close'] = '</li>';
 		$config['cur_tag_open'] = '<li class="active"><a href="javascript:void(0);">';
@@ -2123,7 +2156,7 @@ class Home extends CI_Controller
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
 		$this->pagination->initialize($config);
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 		$data["links"] = $this->pagination->create_links();
 		$data['page'] = $page;
 
@@ -3515,5 +3548,32 @@ class Home extends CI_Controller
 		$data['departmentsDetails'] = $this->admin_model->getDetailsbyfield($id, 'id', 'naac_files')->row();
 		$this->template->show('naac_info', $data);
 	}
+
+	public function CIE_Seat_Allotment($id)
+	{
+		$data['page_title'] = "CIE Seat Allotment";
+		$data['mainMenu'] = 'Departments';
+		$data['dept_name'] = str_replace('-', ' ', $id);
+		$data['dept_id'] = $this->globals_model->departmentId($data['dept_name']);
+		$data['parentMenu'] = $this->globals_model->departmentsList()[$data['dept_id']];
+		$data['short_name'] = $this->globals_model->departmentShortName()[$data['dept_id']];
+		$data['activeMenu'] = "CIE Seat Allotment";
+		$data['circulars'] = $this->admin_model->getDetailsbyfieldSort($data['dept_id'], 'dept_id','id','desc', 'seats')->result();
+		$this->template->show('Dept_Seats', $data);
+	}
+
+	public function docs()
+	{
+		$Scrolling = $this->admin_model->getDetails('scrolling', '1')->row();
+		$data['scroll_text'] = $Scrolling->scroll_text;
+		$data['scroll_status'] = $Scrolling->status;
+		$data['activeMenu'] = "Home";
+
+		// echo "<pre>";
+		// print_r($latestNews); die;
+
+		$this->template->show('docs', $data);
+	}
+	
 
 }

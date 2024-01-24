@@ -689,10 +689,10 @@ $Details = $this->admin_model->getDetails('naac_files', $id)->row();
 			if ($Details->file_names) {
 
 				$fileName = $Details->file_names;
-				$url = glob('./assets/departments/' . $data['short_name'] . '/naacs/' . $fileName);
-				if ($url) {
-					unlink($url[0]);
-				}
+				// $url = glob('./assets/departments/' . $data['short_name'] . '/naacs/' . $fileName);
+				// if ($url) {
+				// 	unlink($url[0]);
+				// }
 				// array_splice($fileNames, $filenameID, 1); 
 			}
 			$this->admin_model->delDetails('naac_files', $id);

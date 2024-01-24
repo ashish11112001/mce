@@ -119,7 +119,8 @@ VTU Inter Collegiate sports selection dates Of the year 2023-24<?php echo anchor
 VTU Inter Collegiate sports/games selection trails for the year 2023-24<?php echo anchor('assets/files/sports/VTU GAMES SELECTION TRAILS.jpeg','<i class="fa fa-eye"></i> Click here','class="btn btn-warning btn-sm" target="_blank"');?></h4>
 <h4>
 Calendar of VTU Inter Collegiate sports/games for the year 2023-24<?php echo anchor('assets/files/sports/VTU-Sports-Calendar-2023-24-Even Sem.pdf','<i class="fa fa-eye"></i> Click here','class="btn btn-warning btn-sm" target="_blank"');?></h4>
-
+<h4>
+   VTU state Level Handball(M)Championship and selection trails 2024<?php echo anchor('assets/files/sports/invitation of handball.pdf','<i class="fa fa-eye"></i> Click here','class="btn btn-warning btn-sm" target="_blank"');?></h4>
                 </div>
 				
 

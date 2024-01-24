@@ -13,6 +13,7 @@ class Dept extends CI_Controller
 		parent::__construct();
 		$this->CI = &get_instance();
 		$this->load->model('admin_model', '', TRUE);
+		$this->load->model('globals_model', '', TRUE);
 		$this->load->library(array('table', 'form_validation'));
 		$this->load->helper(array('form', 'form_helper'));
 		date_default_timezone_set('Asia/Kolkata');
@@ -4092,6 +4093,7 @@ class Dept extends CI_Controller
 				$this->table->set_heading(
 					array('data' => 'S.No', 'width' => '5%'),
 					array('data' => 'Material Title', 'width' => '80%'),
+					array('data' => 'Subject', 'width' => '30%'),
 					array('data' => 'Action', 'width' => '15%')
 				);
 				$i = 1;
@@ -4102,6 +4104,7 @@ class Dept extends CI_Controller
 						$files = $Details1->file_names;
 						$files1 = pathinfo($files, PATHINFO_FILENAME);
 						$name = str_replace('_', ' ', $files1);
+						$subject = $this->globals_model->get_name_by_id($Details1->subject,"subjects");
 
 						$btn = '<div class="btn-group">
 					' . anchor('assets/departments/' . $data['short_name'] . '/materials/' . $files, '<i class="fa fa-fw fa-download"></i>', 'class="btn btn-sm btn-success" data-toggle="tooltip" title="Download" target="_blank"') . '
@@ -4123,7 +4126,7 @@ class Dept extends CI_Controller
 						//$download = anchor($Details1->url, $fileName, 'target="_blank"');
 					}
 
-					$this->table->add_row($i++, $name, $btn);
+					$this->table->add_row($i++, $name,$subject, $btn);
 				}
 				$data['table'] = $this->table->generate();
 			} else {
@@ -4145,7 +4148,7 @@ class Dept extends CI_Controller
 			$data['short_name'] = $session_data['short_name'];
 			$data['pageTitle'] = "Add New Materials";
 			$data['activeMenu'] = "materials";
-
+			$data['subjects'] = $this->admin_model->getDetailsbyfieldSort($data['id'], 'dept_id', 'name', 'DESC', 'subjects')->result();
 			$this->form_validation->set_rules('files', 'File Name', 'trim');
 
 			if ($this->form_validation->run() === FALSE) {
@@ -4153,7 +4156,7 @@ class Dept extends CI_Controller
 				$data['btn_name'] = 'Add';
 
 				$data['files'] = $this->input->post('files');
-
+				$data['subject'] = $this->input->post('subject');
 				$this->dept_template->show('dept/addMaterials', $data);
 			} else {
 
@@ -4178,6 +4181,7 @@ class Dept extends CI_Controller
 							'file_names' => $filename,
 							'url' => '',
 							'file_type' => 'F',
+							'subject' => $this->input->post('subject'),
 							'last_updated' => date('Y-m-d h:i:s')
 						);
 						$res = $this->admin_model->insertDetails('materials', $insertDetails);
@@ -4213,7 +4217,7 @@ class Dept extends CI_Controller
 			$data['short_name'] = $session_data['short_name'];
 			$data['pageTitle'] = "Add New Material Link";
 			$data['activeMenu'] = "materials";
-
+			$data['subjects'] = $this->admin_model->getDetailsbyfieldSort($data['id'], 'dept_id', 'name', 'DESC', 'subjects')->result();
 			$this->form_validation->set_rules('files', 'Title', 'trim');
 			$this->form_validation->set_rules('url', 'Link/URL', 'trim');
 			if ($this->form_validation->run() === FALSE) {
@@ -4222,6 +4226,7 @@ class Dept extends CI_Controller
 
 				$data['files'] = $this->input->post('files');
 				$data['url'] = $this->input->post('url');
+				$data['subject'] = $this->input->post('subject');
 
 				$this->dept_template->show('dept/addMaterialsLink', $data);
 			} else {
@@ -4230,6 +4235,7 @@ class Dept extends CI_Controller
 					'file_names' => $this->input->post('files'),
 					'url' => $this->input->post('url'),
 					'file_type' => 'L',
+					'subject' => $this->input->post('subject'),
 					'last_updated' => date('Y-m-d h:i:s')
 				);
 				$res = $this->admin_model->insertDetails('materials', $insertDetails);
@@ -4246,6 +4252,53 @@ class Dept extends CI_Controller
 			redirect('dept', 'refresh');
 		}
 	}
+	function editMaterialsLink($id)
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Edit Material Link";
+			$data['activeMenu'] = "materials";
+			$data['subjects'] = $this->admin_model->getDetailsbyfieldSort($data['id'], 'dept_id', 'name', 'DESC', 'subjects')->result();
+			$this->form_validation->set_rules('files', 'Title', 'trim');
+			$this->form_validation->set_rules('url', 'Link/URL', 'trim');
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'dept/editMaterialsLink/' . $id;
+				$data['btn_name'] = 'Edit';
+
+				$data['files'] = $this->input->post('files');
+				$data['url'] = $this->input->post('url');
+                $data['subject'] = $this->input->post('subject');
+                $data['Details'] = $this->admin_model->getDetails('materials', $id)->row();
+				$this->dept_template->show('dept/editMaterialsLink', $data);
+			} else {
+				$insertDetails = array(
+					'dept_id' => $data['id'],
+					'file_names' => $this->input->post('files'),
+					'url' => $this->input->post('url'),
+					'file_type' => 'L',
+                    'subject' => $this->input->post('subject'),
+					'last_updated' => date('Y-m-d h:i:s')
+				);
+				$res = $this->admin_model->insertDetails('materials', $insertDetails);
+                $res = $this->admin_model->updateDetailsbyfield('dept_id', $data['id'], $insertDetails, 'materials');
+				if ($res) {
+					$this->session->set_flashdata('message', 'Material Details updated successfully...!');
+					$this->session->set_flashdata('status', 'alert-success');
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('dept/materials', 'refresh');
+			}
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+	
 
 	function deleteMaterials($file_type, $id)
 	{
@@ -4524,26 +4577,74 @@ class Dept extends CI_Controller
 			$data['pageTitle'] = "Edit Facilitie";
 			$data['activeMenu'] = "facilities";
 
-			$Details = $this->admin_model->getDetails('facilities', $id)->row();
-			if ($Details->file_name) {
-				$fileName = $Details->file_name;
-				$url = glob('./assets/departments/' . $data['short_name'] . '/facilities/' . $fileName);
-				if ($url) {
-					unlink($url[0]);
-				}
-			}
-			$updateDetails = array('file_name' => '');
-			$result = $this->admin_model->updateDetails($id, $updateDetails, 'facilities');
 
-			if ($result) {
-				$this->session->set_flashdata('message', 'Facilitie Details updated successfully...!');
-				$this->session->set_flashdata('status', 'alert-success');
+
+			$data['Details'] = $this->admin_model->getDetails('facilities', $id)->row();
+			$this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
+			$this->form_validation->set_rules('details', 'Details', 'required');
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'dept/editFacilitie/' . $id;
+				$data['academicYears'] = array(' ' => "Select") + $this->globals->academicYears(2005);
+
+				$this->dept_template->show('dept/editFacilitie', $data);
 			} else {
-				$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
-				$this->session->set_flashdata('status', 'alert-danger');
+				$filename = null;
+				if (!empty($_FILES['files']['name'])) {
+					$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/facilities/';
+					$config['allowed_types'] = 'pdf';
+					$config['max_size'] = '30000';
+
+					$this->load->library('upload', $config);
+					if ($this->upload->do_upload('files')) {
+
+						if ($data['Details']->file_name) {
+							$fileNameOld = $data['Details']->file_name;
+							$url = glob('./assets/departments/' . $data['short_name'] . '/facilities/' . $fileNameOld);
+							if ($url) {
+								unlink($url[0]);
+							}
+						}
+
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+
+						$updateDetails = array(
+							'academic_year' => $this->input->post('academic_year'),
+							'details' => $this->input->post('details'),
+							'file_name' => $filename,
+							'url' => $this->input->post('url')
+						);
+					} else {
+						$filename = '';
+						$updateDetails = array(
+							'academic_year' => $this->input->post('academic_year'),
+							'details' => $this->input->post('details'),
+							'url' => $this->input->post('url')
+						);
+					}
+				} else {
+					$filename = '';
+					$updateDetails = array(
+						'academic_year' => $this->input->post('academic_year'),
+						'details' => $this->input->post('details'),
+						'url' => $this->input->post('url')
+					);
+				}
+
+				$result = $this->admin_model->updateDetails($id, $updateDetails, 'facilities');
+
+				if ($result) {
+					$this->session->set_flashdata('message', 'facilities Details updated successfully...!');
+					$this->session->set_flashdata('status', 'alert-success');
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('dept/facilities', 'refresh');
 			}
-			redirect('dept/facilities', 'refresh');
-		} else {
+
+
+	} else {
 			redirect('dept', 'refresh');
 		}
 	}
@@ -5558,9 +5659,28 @@ function newsletters()
 				$data['action'] = 'dept/addAlbum';
 				$this->dept_template->show('dept/addAlbum', $data);
 			} else {
+
+				$filename = null;
+				if (!empty($_FILES['files']['name'])) {
+					$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/albums/';
+					$config['allowed_types'] = 'png|jpg|jpeg';
+					$config['max_size'] = '30000';
+					$new_name = time().$_FILES["userfiles"]['name'];
+					$config['file_name'] = $new_name;
+					$this->load->library('upload', $config);
+					if ($this->upload->do_upload('files')) {
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+					} else {
+						$filename = '';
+					}
+				} else {
+					$filename = '';
+				}
 				$insertData = array(
 					'dept_id' => $data['id'],
 					'name' => $this->input->post('name'),
+					'file_names' => $filename,
 					'status' => $this->input->post('status')
 				);
 
@@ -5598,8 +5718,27 @@ function newsletters()
 				$this->dept_template->show('dept/editAlbum', $data);
 			} else {
 
+				$filename = null;
+				if (!empty($_FILES['files']['name'])) {
+					$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/albums/';
+					$config['allowed_types'] = 'png|jpg|jpeg';
+					$config['max_size'] = '30000';
+					$new_name = time().$_FILES["userfiles"]['name'];
+					$config['file_name'] = $new_name;
+
+					$this->load->library('upload', $config);
+					if ($this->upload->do_upload('files')) {
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+					} else {
+						$filename = '';
+					}
+				} else {
+					$filename = $data['Details']->file_names;
+				}
 				$updateDetails = array(
 					'name' => $this->input->post('name'),
+					'file_names' => $filename,
 					'status' => $this->input->post('status')
 				);
 				$res = $this->admin_model->updateDetails($id, $updateDetails, 'albums');
@@ -5952,7 +6091,7 @@ function newsletters()
 
 						//   $config['upload_path'] = 'assets/latest_news/'; 
 						$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/latest_news/';
-						$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+						$config['allowed_types'] = 'jpg|jpeg|png|gif';
 						$config['max_size'] = '5000';
 						//   $config['file_name'] = $_FILES['files']['name'][$i];
 
@@ -5966,6 +6105,9 @@ function newsletters()
 					}
 				}
 
+
+				// print_r($this->input->post('news_details'));
+				// die();
 				$insertData = array(
 					'news_title' => $this->input->post('news_title'),
 					'news_slug' => $this->create_unique_slug($this->input->post('news_title')),
@@ -6030,7 +6172,7 @@ function newsletters()
 						$_FILES['file']['size'] = $_FILES['files']['size'][$i];
 
 						$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/latest_news/';
-						$config['allowed_types'] = 'jpg|jpeg|png|gif|pdf';
+						$config['allowed_types'] = 'jpg|jpeg|png|gif';
 						$config['max_size'] = '5000';
 						//   $config['file_name'] = $_FILES['files']['name'][$i];
 
@@ -6393,5 +6535,310 @@ function deletePlacements($file_type, $id)
 	}
 }
 
+
+function addSeats()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Add Seat Allotment";
+			$data['activeMenu'] = "seats";
+
+			$this->form_validation->set_rules('details', 'Title', 'trim');
+			$this->form_validation->set_rules('files', 'File Name', 'trim');
+
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'dept/addSeats/';
+				$data['btn_name'] = 'Add';
+
+				$data['details'] = $this->input->post('details');
+				$data['files'] = $this->input->post('files');
+
+				$this->dept_template->show('dept/addSeats', $data);
+			} else {
+
+				$filename = null;
+				if (!empty($_FILES['files']['name'])) {
+					$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/seats/';
+					$config['allowed_types'] = 'pdf';
+					$config['max_size'] = '30000';
+					$config['encrypt_name'] = TRUE;
+
+					$this->load->library('upload', $config);
+
+					if ($this->upload->do_upload('files')) {
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+
+						$insertDetails = array(
+							'dept_id' => $data['id'],
+							'details' => $this->input->post('details'),
+							'file_names' => $filename,
+							'file_type' => 'F',
+							'last_updated' => date('Y-m-d h:i:s')
+						);
+						$res = $this->admin_model->insertDetails('seats', $insertDetails);
+						if ($res) {
+							$this->session->set_flashdata('message', 'Details inserted successfully...!');
+							$this->session->set_flashdata('status', 'alert-success');
+						} else {
+							$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+							$this->session->set_flashdata('status', 'alert-danger');
+						}
+					} else {
+						$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+						$this->session->set_flashdata('status', 'alert-danger');
+					}
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('dept/seats', 'refresh');
+			}
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+
+	function deleteSeats($file_type, $id)
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Remove Seats";
+			$data['activeMenu'] = "seats";
+			$data['eid'] = $id;
+
+			if ($file_type == "F") {
+				$Details = $this->admin_model->getDetails('seats', $id)->row();
+				if ($Details->file_names) {
+
+					$fileName = $Details->file_names;
+					$url = glob('./assets/departments/' . $data['short_name'] . '/seats/' . $fileName);
+					if ($url) {
+						unlink($url[0]);
+					}
+					// array_splice($fileNames, $filenameID, 1);
+				}
+			}
+
+			$this->admin_model->delDetails('seats', $id);
+			$this->session->set_flashdata('message', 'Details deleted successfully...!');
+			$this->session->set_flashdata('status', 'alert-success');
+
+			redirect('dept/seats', 'refresh');
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+
+	function seats()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Seat Allotment";
+			$data['activeMenu'] = "seats";
+
+			$Details = $this->admin_model->getDetailsbyfield($data['id'], 'dept_id', 'seats')->result();
+
+			if ($Details != null) {
+				$table_setup = array('table_open' => '<table class="table table-bordered table-hover js-dataTable-full" id="dataTable" width="100%" cellspacing="0">');
+				$this->table->set_template($table_setup);
+				$this->table->set_heading(
+					array('data' => 'S.No', 'width' => '5%'),
+					array('data' => 'Details', 'width' => '80%'),
+					array('data' => 'Action', 'width' => '15%')
+				);
+				$i = 1;
+				foreach ($Details as $Details1) {
+
+					if ($Details1->file_type == 'F') {
+						$fileName = ($Details1->details) ? $Details1->details : '--';
+						$files = $Details1->file_names;
+						$files1 = pathinfo($files, PATHINFO_FILENAME);
+						$name = str_replace('_', ' ', $files1);
+
+						$btn = '<div class="btn-group">
+						' . anchor('assets/departments/' . $data['short_name'] . '/seats/' . $files, '<i class="fa fa-fw fa-download"></i>', 'class="btn btn-sm btn-success" data-toggle="tooltip" title="Download" target="_blank"') . '
+						' . anchor('dept/deleteSeats/' . $Details1->file_type . '/' . $Details1->id, '<i class="fa fa-fw fa-times"></i>', 'class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove"') . '
+						</div>';
+
+						$download = anchor('assets/departments/' . $data['short_name'] . '/seats/' . $files, $fileName, 'target="_blank"');
+					}
+
+
+					$this->table->add_row($i++, $fileName, $btn);
+				}
+				$data['table'] = $this->table->generate();
+			} else {
+				$data['table'] = '<h4 class="text-center text-muted mb-5 mt-5 pb-5 pt-5"> Seat Allotment not yet created..! </h4>';
+			}
+			$this->dept_template->show('dept/seats', $data);
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+	function subjects()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name']; 
+			$data['pageTitle'] = "Subjects";
+			$data['activeMenu'] = "subjects";
+
+			$details = $this->admin_model->getDetailsbyfieldSort($data['id'], 'dept_id', 'name', 'DESC', 'subjects')->result();
+
+			if ($details != null) {
+				$table_setup = array('table_open' => '<table class="table table-bordered table-hover js-dataTable-full" id="dataTable" width="100%" cellspacing="0">');
+				$this->table->set_template($table_setup);
+				$this->table->set_heading(
+					array('data' => 'S.No', 'width' => '5%'),
+					array('data' => 'Name', 'width' => '15%'),
+					
+					array('data' => 'Action', 'width' => '15%')
+				);
+				$i = 1;
+				foreach ($details as $details1) {
+
+					$btn = '<div class="btn-group">
+							' . anchor('dept/editSubject/' . $details1->id, '<i class="fa fa-fw fa-pencil-alt"></i>', 'class="btn btn-sm btn-success" data-toggle="tooltip" title="Edit Subject"') . '
+							' . anchor('dept/deleteSubject/' . $details1->id, '<i class="fa fa-fw fa-times"></i>', 'class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove Subject"') . '
+						</div>';
+
+				
+					$this->table->add_row(
+						$i++,
+						$details1->name,
+					
+						$btn
+					);
+				}
+				$data['table'] = $this->table->generate();
+			} else {
+				$data['table'] = '<h4 class="text-center text-muted mb-5 mt-5 pb-5 pt-5"> Subject details not yet created..! </h4>';
+			}
+
+			$this->dept_template->show('dept/subjects', $data);
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+
+	function addSubject()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Add Subject";
+			$data['activeMenu'] = "subjects";
+
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'dept/addSubject';
+				
+				$this->dept_template->show('dept/addSubject', $data);
+			} else {
+				
+				
+
+				$insertData = array(
+					'dept_id' => $data['id'],
+					'name' => $this->input->post('name')
+				);
+
+				$res = $this->admin_model->insertDetails('subjects', $insertData);
+				if ($res) {
+					$this->session->set_flashdata('message', 'Subject Details inserted successfully...!');
+					$this->session->set_flashdata('status', 'alert-success');
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('dept/subjects', 'refresh');
+			}
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+
+	function editSubject($id)
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Edit Subject";
+			$data['activeMenu'] = "subjects";
+			$data['Details'] = $this->admin_model->getDetails('subjects', $id)->row();
+			$this->form_validation->set_rules('name', 'Name', 'required');
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'dept/editSubject/' . $id;
+
+				$this->dept_template->show('dept/editSubject', $data);
+			} else {
+				
+					
+					$updateDetails = array(
+						'name' => $this->input->post('name')
+					);
+				
+
+				$result = $this->admin_model->updateDetails($id, $updateDetails, 'subjects');
+
+				if ($result) {
+					$this->session->set_flashdata('message', 'Subject Details updated successfully...!');
+					$this->session->set_flashdata('status', 'alert-success');
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('dept/subjects', 'refresh');
+			}
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
+    function deleteSubject($id)
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Delete Subject";
+			$data['activeMenu'] = "subjects";
+
+			$Details = $this->admin_model->getDetails('subjects', $id)->row();
+	
+
+			$this->admin_model->delDetails('subjects', $id);
+
+			$this->session->set_flashdata('message', 'Subject Details deleted successfully...!');
+			$this->session->set_flashdata('status', 'alert-warning');
+
+			redirect('dept/subjects', 'refresh');
+		} else {
+			redirect('dept', 'refresh');
+		}
+	}
 
 }

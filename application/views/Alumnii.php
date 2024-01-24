@@ -44,16 +44,83 @@
                       <p><strong>Distinguished Alumni Data</strong></p>
                     </td>
                   </tr>
-                  <tr>
+                     <tr>
                     <td width="72">
                       <p><strong>1</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Civil Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/ALUMINI CIVIL.pdf">CE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
+                     <tr>
+                    <td width="72">
+                      <p><strong>2</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Electrical And Electronics Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/EEE Alumni details.pdf">EEE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="72">
+                      <p><strong>3</strong></p>
                     </td>
                     <td width="346">
                       <p><strong>Computer Science Engineering</strong></p>
                     </td>
                     <td width="463">
-                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumni-Computer%20science%20department.pdf">CSE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumni-CSE.pdf">CSE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
                     </td>
+                  </tr>
+                  <tr>
+                    <td width="72">
+                      <p><strong>4</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Electronics And Instrumentation Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumni_Details_EIE.pdf">EIE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
+                    <tr>
+                    <td width="72">
+                      <p><strong>5</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Electronics And Communication Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumni ece.pdf">ECE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
+                    <tr>
+                    <td width="72">
+                      <p><strong>6</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Mechanical Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumni-Mech.pdf">ME Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
+                     <tr>
+                    <td width="72">
+                      <p><strong>7</strong></p>
+                    </td>
+                    <td width="346">
+                      <p><strong>Information Science And Engineering</strong></p>
+                    </td>
+                    <td width="463">
+                      <p><strong><u><a href="<?= base_url(); ?>assets/files/Alumni/Alumini_details_ise.pdf">ISE Distinguished Alumni Link-----&gt;Click Here</a></u></strong></p>
+                    </td>
+                  </tr>
                   </tr>
                 </tbody>
               </table>

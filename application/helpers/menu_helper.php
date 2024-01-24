@@ -325,6 +325,11 @@ $jayParsedAry = [
                             "display" => true,
                         ],
                         [
+                            "name" => "CIE Seat Allotment",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
                             "name" => "Time Table-Calendar Of Events",
                             "link" => true,
                             "display" => true,
@@ -432,6 +437,11 @@ $jayParsedAry = [
                         ],
                         [
                             "name" => "News and Events",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
+                            "name" => "CIE Seat Allotment",
                             "link" => true,
                             "display" => true,
                         ],
@@ -547,6 +557,11 @@ $jayParsedAry = [
                             "display" => true,
                         ],
                         [
+                            "name" => "CIE Seat Allotment",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
                             "name" => "Time Table Calendar Of Events",
                             "link" => true,
                             "display" => true,
@@ -654,6 +669,11 @@ $jayParsedAry = [
                         ],
                         [
                             "name" => "News and Events",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
+                            "name" => "CIE Seat Allotment",
                             "link" => true,
                             "display" => true,
                         ],
@@ -769,6 +789,11 @@ $jayParsedAry = [
                             "display" => true,
                         ],
                         [
+                            "name" => "CIE Seat Allotment",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
                             "name" => "Time Table Calendar Of Events",
                             "link" => true,
                             "display" => true,
@@ -876,6 +901,11 @@ $jayParsedAry = [
                         ],
                         [
                             "name" => "News and Events",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
+                            "name" => "CIE Seat Allotment",
                             "link" => true,
                             "display" => true,
                         ],
@@ -991,6 +1021,11 @@ $jayParsedAry = [
                             "display" => true,
                         ],
                         [
+                            "name" => "CIE Seat Allotment",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
                             "name" => "Time Table Calendar Of Events",
                             "link" => true,
                             "display" => true,
@@ -1098,6 +1133,11 @@ $jayParsedAry = [
                         ],
                         [
                             "name" => "News and Events",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
+                            "name" => "CIE Seat Allotment",
                             "link" => true,
                             "display" => true,
                         ],
@@ -1213,6 +1253,11 @@ $jayParsedAry = [
                             "display" => true,
                         ],
                         [
+                            "name" => "CIE Seat Allotment",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
                             "name" => "Time Table Calendar Of Events",
                             "link" => true,
                             "display" => true,
@@ -1320,6 +1365,11 @@ $jayParsedAry = [
                         ],
                         [
                             "name" => "News and Events",
+                            "link" => true,
+                            "display" => true,
+                        ],
+                        [
+                            "name" => "CIE Seat Allotment",
                             "link" => true,
                             "display" => true,
                         ],
@@ -1611,11 +1661,11 @@ $jayParsedAry = [
                             "link" => true,
                             "display" => true,
                         ],
-                        [
-                            "name" => "Alumni",
-                            "link" => true,
-                            "display" => true,
-                        ],
+                        // [
+                        //     "name" => "Alumni",
+                        //     "link" => true,
+                        //     "display" => true,
+                        // ],
                         [
                             "name" => "Research",
                             "link" => true,
@@ -1636,11 +1686,11 @@ $jayParsedAry = [
                             "link" => true,
                             "display" => true,
                         ],
-                        [
-                            "name" => "Placements",
-                            "link" => true,
-                            "display" => true,
-                        ],
+                        // [
+                        //     "name" => "Placements",
+                        //     "link" => true,
+                        //     "display" => true,
+                        // ],
                         [
                             "name" => "Mandatory Disclosures",
                             "link" => true,
@@ -1651,11 +1701,11 @@ $jayParsedAry = [
                             "link" => true,
                             "display" => true,
                         ],
-                        [
-                            "name" => "News and Events",
-                            "link" => true,
-                            "display" => true,
-                        ],
+                        // [
+                        //     "name" => "News and Events",
+                        //     "link" => true,
+                        //     "display" => true,
+                        // ],
                         [
                             "name" => "Time Table Calendar Of Events",
                             "link" => true,
@@ -1699,6 +1749,11 @@ $jayParsedAry = [
                 ],
                 [
                     "name" => "Circulars",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Seat Allotment",
                     "link" => true,
                     "display" => true,
                 ],
@@ -2117,6 +2172,41 @@ $jayParsedAry = [
                     "display" => true,
                 ],
                 [
+                    "name" => "Curricular Aspects",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Teaching Learning and Evaluation",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Research, Innovations and Extension",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Infrastructure and Learning Resources",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Student Support and Progression",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Governances, Leadership and Management",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "Institutional Values and Best Practices",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
                     "name" => "AQAR Documents",
                     "link" => true,
                     "display" => true,
@@ -2132,7 +2222,12 @@ $jayParsedAry = [
             "subchildrenDisplay" => true,
             "children" => [
                 [
-                    "name" => "DVV Clarification",
+                    "name" => "DVV Clarification-1",
+                    "link" => true,
+                    "display" => true,
+                ],
+                [
+                    "name" => "DVV Clarification-2",
                     "link" => true,
                     "display" => true,
                 ],
@@ -2711,5 +2806,38 @@ $menuData=json_encode($jayParsedAry);
 
 }
 
+
+
+
+if (!function_exists('updateVisitCounter')) {
+    function updateVisitCounter() {
+        $CI =& get_instance();
+        $CI->load->helper('file');
+
+        // Specify the path to the text file
+        $counterFilePath = FCPATH . 'assets/visit_counter.txt';
+
+        // Check if the file exists
+        if (file_exists($counterFilePath)) {
+            // Read the current counter value from the file
+            $currentCounter = (int) read_file($counterFilePath);
+
+            // Increment the counter
+            $newCounter = $currentCounter + 1;
+
+            // Write the updated counter value back to the file
+            write_file($counterFilePath, $newCounter);
+
+            // Return the updated counter value
+            return $newCounter;
+        } else {
+            // If the file doesn't exist, create it and set the counter to 1
+            write_file($counterFilePath, 1);
+
+            // Return 1 as the initial counter value
+            return 1;
+        }
+    }
+}
 
 ?>

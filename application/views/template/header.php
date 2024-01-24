@@ -181,7 +181,7 @@
       <div class="header-top bg-theme-color-2 sm-text-center">
         <div class="container">
           <div class="row">
-            <div class="col-md-9 pt-10 pb-10">
+            <div class="col-md-9 pt-10 pb-5">
               <div class="widget no-border m-0">
                 <?php
                 $Scrolling = $this->admin_model->getDetails('scrolling', '1')->row();

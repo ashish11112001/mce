@@ -14,6 +14,17 @@
                                 <input type='text' name='files' id="files" class="form-control form-control-sm">
                                 <span class="text-danger"><?php echo form_error('files'); ?></span>
                             </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="academic_year">Subject: <span class="text-danger">*</span></label>
+                               
+                               <select class="form-control form-control-sm" id="subject" name="subject">
+                               <?php foreach($subjects as $sub) { ?>
+                                <option value="<?=$sub->id;?>"><?=$sub->name;?></option>
+                                <?php }?>
+                               </select>
+                                <?php echo form_error('subject', '<div class="error">', '</div>'); ?>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label>Link / URL </label>
                                 <input type='text' name='url' id="url" class="form-control form-control-sm">

@@ -1,4 +1,6 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script> -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<script type="text/javascript" src="<?php echo base_url('assets');?>/ckfinder/ckfinder.js"></script>
 <main id="main-container">
     <div class="content">
         <div class="card shadow mb-4">
@@ -18,31 +20,50 @@
 
                 <div class="form-group mx-5">
                     <label for="details">Details</label>
-                    <textarea id="news_details" name="news_details" class="form-control" rows="6"
+             
+                    <textarea id="news_details" name="news_details" class="rich form-control" rows="6"
                         placeholder="news details will type here..."><?php echo (set_value('news_details'))?set_value('news_details'):'';?></textarea>
                     <span class="text-danger"><?php echo form_error('news_details'); ?></span>
                     <script>
-                    const textarea = document.querySelector('#news_details');
-                    ClassicEditor
-                        .create(textarea, {
-                            link: {
-                                // addTargetToExternalLinks: true,
-                                decorators: [
-                                    {
-                                        mode: 'manual',
-                                        label: 'Open in New Window',
-                                        attributes: {
-                                            target: '_blank'
-                                        }
-                                    }
-                                ]
-                            }
-                        })
-                        .then(editor => {
-                            window.editor = editor
-                            editor.ui.view.editable.editableElement.style.height = '300px';
-                        });
+                    // const textarea = document.querySelector('#news_details');
+                    // ClassicEditor
+                    //     .create(textarea, {
+                    //         link: {
+                    //             // addTargetToExternalLinks: true,
+                    //             decorators: [
+                    //                 {
+                    //                     mode: 'manual',
+                    //                     label: 'Open in New Window',
+                    //                     attributes: {
+                    //                         target: '_blank'
+                    //                     }
+                    //                 }
+                    //             ]
+                    //         }
+                    //     })
+                    //     .then(editor => {
+                    //         window.editor = editor
+                    //         editor.ui.view.editable.editableElement.style.height = '300px';
+                    //     });
                     </script>
+                     <script type="text/javascript" src="<?php echo base_url('assets/tinymce/tinymce.min.js'); ?>"></script>
+
+<script type="text/javascript">
+    tinymce.init({
+        selector: ".rich",
+        convert_urls: 0,
+        theme: "modern",
+        paste_data_images: true,
+        plugins: [
+            " link image lists  hr  ",
+            "  ",
+            " table  paste "
+        ],
+        image_advtab: false,
+    
+    });
+</script>
+<script src="<?php echo base_url(); ?>/assets/ckeditor/ckeditor.js"></script>
                 </div>
 
                 <div class="row  mx-5">

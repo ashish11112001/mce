@@ -153,7 +153,7 @@ class Examination extends CI_Controller
 						$download = anchor('assets/departments/' . $data['short_name'] . '/documents/' . $files, $fileName, 'target="_blank"');
 					}
 
-			
+
 					$this->table->add_row($i++, $fileName, $btn);
 				}
 				$data['table'] = $this->table->generate();
@@ -269,13 +269,167 @@ class Examination extends CI_Controller
 		}
 	}
 
+
+	function addSeats()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Add Seat Allotment";
+			$data['activeMenu'] = "seats";
+
+			$this->form_validation->set_rules('details', 'Title', 'trim');
+			$this->form_validation->set_rules('files', 'File Name', 'trim');
+
+			if ($this->form_validation->run() === FALSE) {
+				$data['action'] = 'examination/addSeats/';
+				$data['btn_name'] = 'Add';
+
+				$data['details'] = $this->input->post('details');
+				$data['files'] = $this->input->post('files');
+
+				$this->examination_template->show('examination/addSeats', $data);
+			} else {
+
+				$filename = null;
+				if (!empty($_FILES['files']['name'])) {
+					$config['upload_path'] = './assets/departments/' . $data['short_name'] . '/seats/';
+					$config['allowed_types'] = 'pdf';
+					$config['max_size'] = '30000';
+					$config['encrypt_name'] = TRUE;
+
+					$this->load->library('upload', $config);
+
+					if ($this->upload->do_upload('files')) {
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+
+						$insertDetails = array(
+							'dept_id' => $data['id'],
+							'details' => $this->input->post('details'),
+							'file_names' => $filename,
+							'file_type' => 'F',
+							'last_updated' => date('Y-m-d h:i:s')
+						);
+						$res = $this->admin_model->insertDetails('seats', $insertDetails);
+						if ($res) {
+							$this->session->set_flashdata('message', 'Details inserted successfully...!');
+							$this->session->set_flashdata('status', 'alert-success');
+						} else {
+							$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+							$this->session->set_flashdata('status', 'alert-danger');
+						}
+					} else {
+						$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+						$this->session->set_flashdata('status', 'alert-danger');
+					}
+				} else {
+					$this->session->set_flashdata('message', 'Oops something went wrong please try again.!');
+					$this->session->set_flashdata('status', 'alert-danger');
+				}
+				redirect('examination/seats', 'refresh');
+			}
+		} else {
+			redirect('examination-manage', 'refresh');
+		}
+	}
+
+	function deleteSeats($file_type, $id)
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Remove Seats";
+			$data['activeMenu'] = "seats";
+			$data['eid'] = $id;
+
+			if ($file_type == "F") {
+				$Details = $this->admin_model->getDetails('seats', $id)->row();
+				if ($Details->file_names) {
+
+					$fileName = $Details->file_names;
+					$url = glob('./assets/departments/' . $data['short_name'] . '/seats/' . $fileName);
+					if ($url) {
+						unlink($url[0]);
+					}
+					// array_splice($fileNames, $filenameID, 1);
+				}
+			}
+
+			$this->admin_model->delDetails('seats', $id);
+			$this->session->set_flashdata('message', 'Details deleted successfully...!');
+			$this->session->set_flashdata('status', 'alert-success');
+
+			redirect('examination/seats', 'refresh');
+		} else {
+			redirect('examination-manage', 'refresh');
+		}
+	}
+
+	function seats()
+	{
+		if ($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$data['id'] = $session_data['id'];
+			$data['username'] = $session_data['username'];
+			$data['department_name'] = $session_data['department_name'];
+			$data['short_name'] = $session_data['short_name'];
+			$data['pageTitle'] = "Seat Allotment";
+			$data['activeMenu'] = "seats";
+
+			$Details = $this->admin_model->getDetailsbyfield($data['id'], 'dept_id', 'seats')->result();
+
+			if ($Details != null) {
+				$table_setup = array('table_open' => '<table class="table table-bordered table-hover js-dataTable-full" id="dataTable" width="100%" cellspacing="0">');
+				$this->table->set_template($table_setup);
+				$this->table->set_heading(
+					array('data' => 'S.No', 'width' => '5%'),
+					array('data' => 'Details', 'width' => '80%'),
+					array('data' => 'Action', 'width' => '15%')
+				);
+				$i = 1;
+				foreach ($Details as $Details1) {
+
+					if ($Details1->file_type == 'F') {
+						$fileName = ($Details1->details) ? $Details1->details : '--';
+						$files = $Details1->file_names;
+						$files1 = pathinfo($files, PATHINFO_FILENAME);
+						$name = str_replace('_', ' ', $files1);
+
+						$btn = '<div class="btn-group">
+						' . anchor('assets/departments/' . $data['short_name'] . '/seats/' . $files, '<i class="fa fa-fw fa-download"></i>', 'class="btn btn-sm btn-success" data-toggle="tooltip" title="Download" target="_blank"') . '
+						' . anchor('examination/deleteSeats/' . $Details1->file_type . '/' . $Details1->id, '<i class="fa fa-fw fa-times"></i>', 'class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove"') . '
+						</div>';
+
+						$download = anchor('assets/departments/' . $data['short_name'] . '/seats/' . $files, $fileName, 'target="_blank"');
+					}
+
+
+					$this->table->add_row($i++, $fileName, $btn);
+				}
+				$data['table'] = $this->table->generate();
+			} else {
+				$data['table'] = '<h4 class="text-center text-muted mb-5 mt-5 pb-5 pt-5"> Seat Allotment not yet created..! </h4>';
+			}
+			$this->examination_template->show('examination/seats', $data);
+		} else {
+			redirect('examination-manage', 'refresh');
+		}
+	}
+
+
+
+
 	function logout()
 	{
 		$this->session->unset_userdata('logged_in');
 		session_destroy();
 		redirect('examination-manage', 'refresh');
 	}
-	
-	
-
 }

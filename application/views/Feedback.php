@@ -61,7 +61,7 @@
                 <div class="col-md-6">
                   <div class="icon-box bg-white left media border-1px border-theme-colored2 bg-hover-theme-colored mb-30 p-30 pb-20" style="display:block" ;=""> <a class="media-left pull-left flip" href="#"></a>
                     <div class="media-body" style="border:none" ;="">
-                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/questionaire.png" style="width:40px" ;=""><a class="boxtext" href="./pdf/1.4.1.-1.5.pdf" target="_blank"><span class="link"></span>Questionnaire</a></h5>
+                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/questionaire.png" style="width:40px" ;=""> <?php echo anchor('assets/files/1.4.1.-1.5.pdf',' <span class="link"></span>Questionnaire','class="boxtext" target="_blank"');?></a></h5>
                     </div>
                   </div>
                 </div>
@@ -71,14 +71,15 @@
                 <div class="col-md-6">
                   <div class="icon-box bg-white left media border-1px border-theme-colored2 bg-hover-theme-colored mb-30 p-30 pb-20" style="display:block" ;=""> <a class="media-left pull-left flip" href="#"></a>
                     <div class="media-body" style="border:none" ;="">
-                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/analysis.jpeg" style="width:45px" ;=""><a class="boxtext" href="./pdf/1.4.1-3.pdf" target="_blank"><span class="link"></span> Action Taken Report</a></h5>
+                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/analysis.jpeg" style="width:45px" ;=""> <?php echo anchor('assets/files/1.4.1-3.pdf',' <span class="link"></span> Action Taken Report','class="boxtext" target="_blank"');?></h5>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 Field">
                   <div class="icon-box bg-white left media border-1px border-theme-colored2 bg-hover-theme-colored mb-30 p-30 pb-20" style="display:block" ;=""> <a class="media-left pull-left flip" href="#"></a>
                     <div class="media-body" style="border:none" ;="">
-                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/analysis.jpeg" style="width:45px" ;=""><a class="boxtext" href="./pdf/1.4.1-2.pdf" target="_blank"><span class="link"></span>Feedback Analysis Report</a></h5>
+                      <h5 class="media-heading heading"><img class="img" src="<?php echo base_url(); ?>assets/images/analysis.jpeg" style="width:45px" ;=""> <?php echo anchor('assets/files/1.4.1-2.pdf',' <span class="link"></span>Feedback Analysis Report','class="boxtext" target="_blank"');?></h5>
+                     
                     </div>
                   </div>
                 </div>

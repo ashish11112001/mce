@@ -301,7 +301,7 @@ ul.list li::before {
 .portfolio-filter a.active,
 .portfolio-filter a:hover,
 .project .hover-link i {
-  background: #c02140 !important;
+  background: #d3d3d3 !important;
 }
 .causes .progress-item .progress-bar .percent {
   border-color: #c02140 !important;

@@ -99,7 +99,9 @@
                             <?php echo anchor('dept/alumni','<i class="nav-main-link-icon si si-list"></i> <span class="nav-main-link-name">Alumni Details</span>','class="nav-main-link '.(($activeMenu == "alumni")?"active":"").' "');  ?>
                         </li>
 
-
+                        <li class="nav-main-item">
+                            <?php echo anchor('dept/seats','<i class="nav-main-link-icon si si-list"></i> <span class="nav-main-link-name">CIE Seat Allotment</span>','class="nav-main-link '.(($activeMenu == "seats")?"active":"").' "');  ?>
+                        </li>
 
 
                         <li class="nav-main-item">

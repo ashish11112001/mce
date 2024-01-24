@@ -23,7 +23,7 @@
                     <textarea id="news_details" name="news_details" class="rich form-control" rows="6"
                         placeholder="news details will type here..."><?php echo (set_value('news_details'))?set_value('news_details'):$Details->news_details;?></textarea>
                     <span class="text-danger"><?php echo form_error('news_details'); ?></span>
-                    <input name="image" type="file" id="upload" class="d-none" onchange="">
+                    <!-- <input name="image" type="file" id="upload" class="d-none" onchange=""> -->
                     <!-- <script>
                     const textarea = document.querySelector('#news_details');
                     ClassicEditor
@@ -56,25 +56,29 @@
             "  ",
             " table  paste "
         ],
-        image_advtab: true,
-        file_picker_callback: function(callback, value, meta) {
-            if (meta.filetype == 'image') {
-                $('#upload').trigger('click');
-                $('#upload').on('change', function() {
-                    var file = this.files[0];
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        callback(e.target.result, {
-                            alt: ''
-                        });
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
+        image_advtab: false,
+    
     });
 </script>
 <script src="<?php echo base_url(); ?>/assets/ckeditor/ckeditor.js"></script>
+                </div>
+                <div class="row  mx-5">
+                    <div class="form-group col-md-6">
+                        <label for="news_display">Select Attachments: (Max: 20MB) </label>
+                        <input type='file' name='files[]' multiple="">
+                        <span class="text-danger"><?php echo form_error('files'); ?></span>
+                        <ul class="mt-3">
+                            <?php
+                                $fileNames = unserialize($Details->files);
+                                foreach($fileNames as $key => $value){
+                                    $del = anchor('dept/latestNewsDelete/'.$Details->id.'/'.$key,'<i class="fa fa-times ml-2 text-danger"></i>','class=""');
+                                    echo '<li>'.anchor('assets/departments/' . $short_name . '/latest_news/'.$value, $value, 'target="_blank"').'&nbsp;'.$del.'</li>';
+                                }
+                            ?>
+                        </ul>
+                    </div>
+
+                   
                 </div>
 
              

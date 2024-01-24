@@ -144,7 +144,7 @@
                     <p class="text-white">Alumni Association was formed during mid eighties and started with one chapter at Bangalore.</p>
                     <a href="<?=base_url();?>home/Alumnii" class="btn btn-border btn-circled btn-transparent btn-xs mt-5">Join us Now</a>
                   </div>
-                  <i class="flaticon-charity-home-insurance bg-icon"></i>
+                  <i class="fa fa-graduation-cap bg-icon"></i>
                 </div>
               </div>
               <div
@@ -155,7 +155,7 @@
                     <p class="text-white">Technical events guide engineering students, computer engineers, researchers to dream bigger and achieve them.</p>
                     <a href="<?=base_url();?>home/Events" class="btn btn-border btn-circled btn-transparent btn-xs mt-5">Read More</a>
                   </div>
-                  <i class="fa fa-calendar-plus-o bg-icon"></i>
+                  <i class="fa fa-calendar-o bg-icon"></i>
                 </div>
               </div>
               <div
@@ -167,7 +167,7 @@
                     <a href="<?=base_url();?>home/Placement-Overview" class="btn btn-border btn-circled btn-transparent btn-xs mt-5">Check
                       Now</a>
                   </div>
-                  <i class="flaticon-charity-make-an-online-donation bg-icon"></i>
+                  <i class="fa fa-black-tie bg-icon"></i>
                 </div>
               </div>
               <div class="col-sm-12 col-md-3 pl-0 pl-sm-15 sm-height-auto mt-sm-0 wow fadeInLeft animation-delay4">
@@ -178,7 +178,7 @@
                     <a href="<?=base_url();?>home/Clubs" class="btn btn-border btn-circled btn-transparent btn-xs mt-5">Contact
                       Now</a>
                   </div>
-                  <i class="fa fa-mobile bg-icon"></i>
+                  <i class="flaticon-charity-home-insurance bg-icon"></i>
                 </div>
               </div>
             </div>
@@ -481,7 +481,7 @@
           <div class="section-content">
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12">
-               <iframe src="https://www.easytourz.com/BT-EmabedTour/all/2549421e7962ed58" width="100%" height="500" frameborder="0" style="border:0" webkitAllowFullScreen mozallowfullscreen allowFullScreen ></iframe>
+               <iframe src="https://experience.vr360ty.com/mce/" width="100%" height="500" frameborder="0" style="border:0" webkitAllowFullScreen mozallowfullscreen allowFullScreen ></iframe>
               </div>
             </div>
           </div>
@@ -630,3 +630,21 @@
 
     </div>
     <!-- end main-content -->
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--         <h4 class="modal-title">Modal Header</h4> -->
+      </div>
+      <div class="modal-body text-center">
+        <img class="mt-10 mb-15" alt="" src="<?php echo base_url(); ?>assets/images/national.jpeg">
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+
+  </div>
+</div>
