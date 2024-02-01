@@ -19,8 +19,8 @@ class Aws_sdk {
 
         // Initialize S3 client
         $credentials = [
-            'key'    => 'AKIAWCLXM2IEPD7J6DHD', // Replace with your AWS access key
-            'secret' => 'M45dSE/sUSOlKUZ3Bi/aSdnZkWle36NNu1mocGM9', // Replace with your AWS secret key
+            'key'    => ${{ secrets.KEY }}, // Replace with your AWS access key
+            'secret' => ${{ secrets.SECRET_ID }}, // Replace with your AWS secret key
         ];
 
         $config = [
