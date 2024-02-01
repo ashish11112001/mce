@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '15.206.117.153',
-	'username' => 'admin',
-	'password' => 'Mcehassan@mysql2023',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	// 'username' => ($_SERVER['HTTP_HOST'] == "localhost") ? 'root' : 'draitedu_web',
 	// 'password' => ($_SERVER['HTTP_HOST'] == "localhost") ? '' : 'draitedu_web',
-	'database' => 'mce_hassan',
+	'database' => 'mcehassan',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
