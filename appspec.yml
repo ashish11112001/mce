@@ -1,0 +1,10 @@
+# ---      name:  .cpanel.yml
+# deployment:
+#  tasks:
+#  - export DEPLOYPATH=/home/draitedu/public_html/
+#  - /bin/cp * $DEPLOYPATH
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/html
