@@ -5,6 +5,8 @@ assets/placements
 assets/activities
 assets/departments
 assets/latest_news
+.gitignore.swp
+.readme.md.swp
 
 DS_Store
 
