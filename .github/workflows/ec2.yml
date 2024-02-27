@@ -3,7 +3,7 @@ name: Deployment
 
 on:
   push:
-    branches: main
+    branches: latest
 jobs:
   
   Deploy:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Deploy to Development
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/latest'
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           HOSTNAME: ${{ secrets.HOSTNAME }}
@@ -19,8 +19,8 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.HOSTNAME}} 
             cd /var/www/html/ &&
-            git checkout main &&
-            git pull origin main 
+            git checkout latest &&
+            git pull origin latest
             
       
   
