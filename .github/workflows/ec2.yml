@@ -17,10 +17,10 @@ jobs:
           HOSTNAME: ${{ secrets.HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.HOSTNAME}} 
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@${{secrets.HOSTNAME}} '
             cd /var/www/html/ &&
             git checkout latest &&
-            git pull origin latest
+            git pull origin latest '
             
       
   
